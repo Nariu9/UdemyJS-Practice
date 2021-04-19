@@ -15,3 +15,5 @@ const key1 = prompt('Один из последних просмотренных
 
 personalMovieDB.movies[key1] = value1;
 personalMovieDB.movies[key2] = value2;
+
+console.log(personalMovieDB);

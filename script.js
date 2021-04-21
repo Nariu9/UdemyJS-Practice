@@ -10,7 +10,7 @@ function start() {
     }
 }
 
-start();
+// start();
 
 const personalMovieDB = {
     count: numberOfFilms,
@@ -35,7 +35,7 @@ function rememberMyFilms() {
     }
 }
 
-rememberMyFilms();
+// rememberMyFilms();
 
 function detectPersonallevel() {
     if (personalMovieDB.count < 10) {
@@ -49,6 +49,20 @@ function detectPersonallevel() {
     }
 }
 
-detectPersonallevel();
+// detectPersonallevel();
 
-console.log(personalMovieDB);
+function showMyDB() {
+    if (personalMovieDB.privat == false) {
+        console.log(personalMovieDB);
+    }
+}
+
+
+function writeYourGenres() {
+    for (let i = 0; i < 3; i++) {
+        personalMovieDB.genres[i] = prompt(`Ваш любимый жанр под номером ${i+1}`);
+    }
+}
+
+writeYourGenres();
+showMyDB();

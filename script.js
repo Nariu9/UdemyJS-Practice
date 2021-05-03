@@ -51,17 +51,26 @@ const personalMovieDB = {
         }
     },
     writeYourGenres: function() {
-        for (let i = 1; i <= 3; i++) {
-            let genre = prompt(`Ваш любимый жанр под номером ${i}`);
-            if (genre == '' || genre == null) {
+        for (let i = 1; i < 2; i++) {
+            // let genre = prompt(`Ваш любимый жанр под номером ${i}`);
+            // if (genre == '' || genre == null) {
+            //     console.log('Введены некорректные данные или ничего не введено');
+            //     i--;
+            // } else {
+            //     this.genres[i - 1] = genre;
+            // }
+            let genres = prompt(`Введите ваши любимые жанры через запятую`).toLowerCase();
+
+            if (genres == '' || genres == null) {
                 console.log('Введены некорректные данные или ничего не введено');
                 i--;
             } else {
-                this.genres[i - 1] = genre;
+                this.genres = genres.split(', ');
+                this.genres.sort();
             }
         }
         this.genres.forEach((item, i) => {
-            console.log(`Любимый жанр #${i} - это ${item}`);
+            console.log(`Любимый жанр #${i+1} - это ${item}`);
         });
     }
 };

@@ -1,25 +1,22 @@
 'use strict';
 
-// let str = 'some';
-// let strObj = new String();
+// // To String
+// //1)
+// const num = 5;
+// console.log("https://vk.com/catalog" + num);
 
-// console.log(typeof(str));
-// console.log(typeof(strObj));
+// const fontSize = 26 + 'px';
 
-// console.dir([1, 2, 3]);
+// console.log(typeof(parseInt('15px', 10)));
 
-const soldier = {
-    health: 400,
-    armor: 100
-};
+// let switcher = null;
+// if (switcher) {
+//     console.log('do something');
+// }
+// switcher = 1;
 
-const john = Object.create(soldier);
+// console.log(typeof(!!'10000'));
 
-// const john = {
-//     heath: 100
-// };
-
-
-Object.setPrototypeOf(john, soldier);
-john.__proto__ = soldier;
-console.log(john.armor); //100
+let y = 1;
+let x = y = 2;
+alert(x);

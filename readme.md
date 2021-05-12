@@ -1,1 +1,1 @@
-Udemy JavaScript practice course
+Udemy JavaScript practice 1

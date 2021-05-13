@@ -1,15 +1,10 @@
 /* Задания на урок:
-
 1) Удалить все рекламные блоки со страницы (правая часть сайта)
-
 2) Изменить жанр фильма, поменять "комедия" на "драма"
-
 3) Изменить задний фон постера с фильмом на изображение "bg.jpg". Оно лежит в папке img.
 Реализовать только при помощи JS
-
 4) Список фильмов на странице сформировать на основании данных из этого JS файла.
 Отсортировать их по алфавиту 
-
 5) Добавить нумерацию выведенных фильмов */
 
 'use strict';
@@ -24,24 +19,31 @@ const movieDB = {
     ]
 };
 
-const adv = document.querySelector('.promo__adv'),
-    advImg = adv.querySelectorAll('img'),
-    genre = document.querySelector('.promo__genre'),
-    promoBg = document.querySelector('.promo__bg'),
-    movieList = document.querySelectorAll('.promo__interactive-item');
+const adv = document.querySelectorAll('.promo__adv img'), //1
+    poster = document.querySelector('.promo__bg'), //3
+    genre = poster.querySelector('.promo__genre'), //2
+    movieList = document.querySelector('.promo__interactive-list'); //4-5
 
-const sortedMovies = movieDB.movies.sort();
-
-advImg.forEach(item => {
+adv.forEach(item => { //1
     item.remove();
 });
 
-genre.textContent = 'драма';
+genre.textContent = 'драма'; //2
 
-promoBg.style.background = "url('../img/bg.jpg')";
+poster.style.backgroundImage = "url('img/bg.jpg')"; //3
 
-movieList.forEach((item, i) => {
-    item.textContent = `${i+1} ${sortedMovies[i]}`;
+movieList.innerHTML = ""; //4
+
+movieDB.movies.sort(); //4
+
+movieDB.movies.forEach((item, i) => { //4-5
+    movieList.innerHTML += `
+    <li class="promo__interactive-item">${i + 1} ${item} 
+        <div class="delete"></div>
+    </li>
+    `;
 });
 
-console.log(movieList);
+movieList.forEach(item => {
+    console.log(item);
+});

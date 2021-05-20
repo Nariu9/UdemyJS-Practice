@@ -9,41 +9,50 @@
 
 'use strict';
 
-const movieDB = {
-    movies: [
-        "Логан",
-        "Лига справедливости",
-        "Ла-ла лэнд",
-        "Одержимость",
-        "Скотт Пилигрим против..."
-    ]
-};
+document.addEventListener('DOMContentLoaded', () => {
+    const movieDB = {
+        movies: [
+            "Логан",
+            "Лига справедливости",
+            "Ла-ла лэнд",
+            "Одержимость",
+            "Скотт Пилигрим против..."
+        ]
+    };
 
-const adv = document.querySelectorAll('.promo__adv img'), //1
-    poster = document.querySelector('.promo__bg'), //3
-    genre = poster.querySelector('.promo__genre'), //2
-    movieList = document.querySelector('.promo__interactive-list'); //4-5
+    const adv = document.querySelectorAll('.promo__adv img'),
+        poster = document.querySelector('.promo__bg'),
+        genre = poster.querySelector('.promo__genre'),
+        movieList = document.querySelector('.promo__interactive-list'),
 
-adv.forEach(item => { //1
-    item.remove();
-});
+        // submitBtn = document.querySelector('.add').lastElementChild,
+        // input = document.querySelector('.add input');
 
-genre.textContent = 'драма'; //2
+        adv.forEach(item => {
+            item.remove();
+        });
 
-poster.style.backgroundImage = "url('img/bg.jpg')"; //3
+    genre.textContent = 'драма';
 
-movieList.innerHTML = ""; //4
+    poster.style.backgroundImage = "url('img/bg.jpg')";
 
-movieDB.movies.sort(); //4
+    movieList.innerHTML = "";
 
-movieDB.movies.forEach((item, i) => { //4-5
-    movieList.innerHTML += `
-    <li class="promo__interactive-item">${i + 1} ${item} 
-        <div class="delete"></div>
-    </li>
-    `;
-});
+    movieDB.movies.sort();
 
-movieList.forEach(item => {
-    console.log(item);
+    movieDB.movies.forEach((item, i) => {
+        movieList.innerHTML += `
+        <li class="promo__interactive-item">${i + 1} ${item} 
+            <div class="delete"></div>
+        </li>
+        `;
+    });
+
+    submitBtn.addEventListener('click', e => {
+        e.preventDefault();
+        movieDB.movies = input.value;
+    });
+
+
+    console.log(movieDB.movies);
 });

@@ -34,18 +34,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const favorite = checkbox.checked;
 
         movieDB.movies.push(newFilm);
-        movieDB.movies.sort();
+        sortArr(movieDB.movies);
+
+        createMovieList(movieDB.movies, movieList);
+        event.target.reset();
     });
 
-    adv.forEach(item => {
-        item.remove();
-    });
+    const deleteAdv = (arr) => {
+        arr.forEach(item => {
+            item.remove();
+        });
+    };
 
-    genre.textContent = 'драма';
+    const makeChanges = () => {
+        genre.textContent = 'драма';
+        poster.style.backgroundImage = "url('img/bg.jpg')";
+    };
 
-    poster.style.backgroundImage = "url('img/bg.jpg')";
-
-    movieDB.movies.sort();
+    const sortArr = (arr) => {
+        arr.sort();
+    };
 
     function createMovieList(films, parent) {
         parent.innerHTML = "";
@@ -59,6 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    deleteAdv(adv);
+    makeChanges();
+    sortArr(movieDB.movies);
     createMovieList(movieDB.movies, movieList);
 
 });

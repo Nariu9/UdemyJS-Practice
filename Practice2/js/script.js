@@ -30,13 +30,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     addForm.addEventListener('submit', (event) => {
         event.preventDefault();
-        let newFilm = addInput.value;
+        let newFilm = addInput.value.toUpperCase();
         const favorite = checkbox.checked;
 
         if (newFilm) {
 
             if (newFilm.length > 21) {
                 newFilm = `${newFilm.substring(0, 22)}...`;
+            }
+
+            if (favorite) {
+                console.log("Добавляем любимый фильм");
             }
 
             movieDB.movies.push(newFilm);

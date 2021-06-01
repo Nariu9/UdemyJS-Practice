@@ -25,18 +25,25 @@ document.addEventListener('DOMContentLoaded', () => {
         genre = poster.querySelector('.promo__genre'),
         movieList = document.querySelector('.promo__interactive-list'),
         addForm = document.querySelector('form.add'),
-        addInput = addForm.querySelector('adding__input'),
+        addInput = addForm.querySelector('.adding__input'),
         checkbox = addForm.querySelector('[type="checkbox"]');
 
     addForm.addEventListener('submit', (event) => {
         event.preventDefault();
-        const newFilm = addInput.value;
+        let newFilm = addInput.value;
         const favorite = checkbox.checked;
 
-        movieDB.movies.push(newFilm);
-        sortArr(movieDB.movies);
+        if (newFilm) {
 
-        createMovieList(movieDB.movies, movieList);
+            if (newFilm.length > 21) {
+                newFilm = `${newFilm.substring(0, 22)}...`;
+            }
+
+            movieDB.movies.push(newFilm);
+            sortArr(movieDB.movies);
+
+            createMovieList(movieDB.movies, movieList);
+        }
         event.target.reset();
     });
 
@@ -57,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function createMovieList(films, parent) {
         parent.innerHTML = "";
+        sortArr(films);
 
         films.forEach((item, i) => {
             parent.innerHTML += `
@@ -65,11 +73,19 @@ document.addEventListener('DOMContentLoaded', () => {
             </li>
             `;
         });
+
+        document.querySelectorAll('.delete').forEach((btn, i) => {
+            btn.addEventListener('click', () => {
+                btn.parentElement.remove();
+                movieDB.movies.splice(i, 1);
+
+                createMovieList(films, parent);
+            });
+        });
     }
 
     deleteAdv(adv);
     makeChanges();
-    sortArr(movieDB.movies);
     createMovieList(movieDB.movies, movieList);
 
 });

@@ -41,7 +41,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Timer
 
-    const deadline = '2020-06-11'; //Дата окончания акции
+    const deadline = '2021-06-11'; //Дата окончания акции
 
     function getTimeRemaining(endtime) { //Создаём функцию для получения времени до конца акции
         const t = Date.parse(endtime) - Date.parse(new Date()), //Получаем разницу между датой окончания акции и текущей датой 
@@ -58,4 +58,38 @@ window.addEventListener('DOMContentLoaded', () => {
             'seconds': seconds
         };
     }
+
+    function getZero(num) {
+        if (num >= 0 && num < 10) {
+            return `0${num}`;
+        } else {
+            return num;
+        }
+    }
+
+    function setClock(selector, endtime) {
+        const timer = document.querySelector(selector),
+            days = document.querySelector('#days'),
+            hours = document.querySelector('#hours'),
+            minutes = document.querySelector('#minutes'),
+            seconds = document.querySelector('#seconds'),
+            timeInterval = setInterval(updateClock, 1000);
+
+        updateClock();
+
+        function updateClock() {
+            const t = getTimeRemaining(endtime);
+
+            days.innerHTML = getZero(t.days);
+            hours.innerHTML = getZero(t.hours);
+            minutes.innerHTML = getZero(t.minutes);
+            seconds.innerHTML = getZero(t.seconds);
+
+            if (t.total <= 0) {
+                clearInterval(timeInterval);
+            }
+        }
+    }
+
+    setClock(".timer", deadline);
 });

@@ -41,11 +41,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Timer
 
-    const deadline = '2021-06-11'; //Дата окончания акции
+    const deadline = '2021-7-1'; //Дата окончания акции
 
     function getTimeRemaining(endtime) { //Создаём функцию для получения времени до конца акции
         const t = Date.parse(endtime) - Date.parse(new Date()), //Получаем разницу между датой окончания акции и текущей датой 
-            days = Math.floor(t / (24 * 60 * 60 * 100)), //Вычисляем сколько это дней
+            days = Math.floor(t / (24 * 60 * 60 * 1000)), //Вычисляем сколько это дней
             hours = Math.floor((t / (60 * 60 * 1000)) % 24), // Вычисляем часы
             minutes = Math.floor((t / 60 / 1000) % 60), //Вычисляем минуты
             seconds = Math.floor((t / 1000) % 60); // Вычисляем секунды
@@ -92,4 +92,38 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     setClock(".timer", deadline);
+
+    // Modal
+
+    const modalTrigger = document.querySelectorAll('[data-modal]'),
+        modal = document.querySelector('.modal'),
+        modalCloseBtn = document.querySelector('[data-close]');
+
+    modalTrigger.forEach(item => {
+        item.addEventListener('click', () => {
+            modal.classList.add('show');
+            modal.classList.remove('hide');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    function closeModal() {
+        modal.classList.add('hide');
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+
+    modalCloseBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.code === 'Escape' && modal.classList.contains('show')) {
+            closeModal();
+        }
+    });
 });

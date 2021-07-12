@@ -41,14 +41,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Timer
 
-    const deadline = '2021-7-1'; //Дата окончания акции
+    const deadline = '2021-7-1';
 
-    function getTimeRemaining(endtime) { //Создаём функцию для получения времени до конца акции
-        const t = Date.parse(endtime) - Date.parse(new Date()), //Получаем разницу между датой окончания акции и текущей датой 
-            days = Math.floor(t / (24 * 60 * 60 * 1000)), //Вычисляем сколько это дней
-            hours = Math.floor((t / (60 * 60 * 1000)) % 24), // Вычисляем часы
-            minutes = Math.floor((t / 60 / 1000) % 60), //Вычисляем минуты
-            seconds = Math.floor((t / 1000) % 60); // Вычисляем секунды
+    function getTimeRemaining(endtime) {
+        const t = Date.parse(endtime) - Date.parse(new Date()),
+            days = Math.floor(t / (24 * 60 * 60 * 1000)),
+            hours = Math.floor((t / (60 * 60 * 1000)) % 24),
+            minutes = Math.floor((t / 60 / 1000) % 60),
+            seconds = Math.floor((t / 1000) % 60);
 
         return {
             'total': t,
@@ -74,6 +74,7 @@ window.addEventListener('DOMContentLoaded', () => {
             minutes = document.querySelector('#minutes'),
             seconds = document.querySelector('#seconds'),
             timeInterval = setInterval(updateClock, 1000);
+
 
         updateClock();
 
@@ -189,7 +190,7 @@ window.addEventListener('DOMContentLoaded', () => {
         'Меню "Фитнес"',
         'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
         9,
-        '.menu .container',
+        '.menu .container'
     ).render();
 
     new MenuCard(
@@ -198,7 +199,7 @@ window.addEventListener('DOMContentLoaded', () => {
         'Меню “Премиум”',
         'В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
         14,
-        '.menu .container',
+        '.menu .container'
     ).render();
 
     new MenuCard(
@@ -207,6 +208,59 @@ window.addEventListener('DOMContentLoaded', () => {
         'Меню "Постное"',
         'Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
         21,
-        '.menu .container',
+        '.menu .container'
     ).render();
+
+    //Forms
+
+
+    const forms = document.querySelectorAll('form');
+    const message = {
+        loading: 'Загрузка',
+        success: 'Спасибо! Мы с вами свяжемся',
+        failure: 'Что-то пошло не так...'
+    };
+
+    forms.forEach(item => {
+        postData(item);
+    });
+
+    function postData(form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            let statusMessage = document.createElement('div');
+            statusMessage.classList.add('status');
+            statusMessage.textContent = message.loading;
+            form.append(statusMessage);
+
+            const request = new XMLHttpRequest();
+            request.open('POST', 'server.php');
+
+            request.setRequestHeader('Content-type', 'application/json');
+
+            const formData = new FormData(form);
+            const object = {};
+            formData.forEach(function(key, value) {
+                object[key] = value;
+            });
+
+            const json = JSON.stringify(object);
+
+            request.send(json);
+
+            request.addEventListener('load', () => {
+                if (request.status === 200) {
+                    console.log(request.response);
+                    statusMessage.textContent = message.success;
+                    form.reset();
+                    setTimeout(() => {
+                        statusMessage.remove();
+                    }, 2000);
+                } else {
+                    statusMessage.textContent = message.failure;
+                }
+            });
+        });
+    }
 });

@@ -10,5 +10,8 @@
   "license": "ISC",
   "devDependencies": {
     "json-server": "^0.16.3"
+  },
+  "dependencies": {
+    "jshint": "^2.13.1"
   }
 }

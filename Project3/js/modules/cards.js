@@ -1,3 +1,5 @@
+import { getResource } from "../services/services";
+
 function cards() {
     // Используем классы для карточек
 
@@ -41,14 +43,7 @@ function cards() {
         }
     }
 
-    const getResource = async(url) => {
-        let result = await fetch(url);
-        if (!result.ok) {
-            throw new Error(`could not fetch ${url}, status: ${result.status}`);
-        }
 
-        return await result.json();
-    };
 
     // getResource('http://localhost:3000/menu')                    Основной способ создания карточек
     //     .then(data => {
@@ -89,4 +84,4 @@ function cards() {
         });
 }
 
-module.exports = cards;
+export default cards;
